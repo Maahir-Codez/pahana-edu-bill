@@ -170,5 +170,4 @@ public class CustomerController extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/customers/list");
         }
     }
-
 }
