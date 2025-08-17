@@ -9,4 +9,5 @@ public interface ICustomerService {
     List<Customer> getAllCustomers();
     Optional<Customer> getCustomerById(long id);
     Customer addCustomer(Customer customer) throws ValidationException;
+    void updateCustomer(Customer customer) throws ValidationException;
 }

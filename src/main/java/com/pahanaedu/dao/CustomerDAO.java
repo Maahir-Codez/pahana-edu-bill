@@ -101,10 +101,45 @@ public class CustomerDAO implements ICustomerDAO {
     }
 
     @Override
-    public boolean existsByAccountNumber(String accountNumber) {
-        String sql = "SELECT COUNT(*) FROM customers WHERE account_number = ?";
+    public void update(Customer customer) {
+        String sql = "UPDATE customers SET account_number = ?, full_name = ?, address = ?, city = ?, " +
+                "postal_code = ?, phone_number = ?, email = ?, is_active = ?, units_consumed = ? " +
+                "WHERE id = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, customer.getAccountNumber());
+            statement.setString(2, customer.getFullName());
+            statement.setString(3, customer.getAddress());
+            statement.setString(4, customer.getCity());
+            statement.setString(5, customer.getPostalCode());
+            statement.setString(6, customer.getPhoneNumber());
+            statement.setString(7, customer.getEmail());
+            statement.setBoolean(8, customer.isActive());
+
+            // Note: date_registered is not updated as it's a fixed historical record
+            statement.setDouble(9, customer.getUnitsConsumed());
+            statement.setLong(10, customer.getId()); // The ID for the WHERE clause
+
+            int affectedRows = statement.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Updating customer failed, no rows affected. Customer with ID " + customer.getId() + " may not exist.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error updating customer in database.", e);
+        }
+    }
+
+
+    @Override
+    public boolean existsByAccountNumber(String accountNumber, Long customerIdToIgnore) {
+        // Build the query. The second part of the WHERE clause is conditional.
+        String sql = "SELECT COUNT(*) FROM customers WHERE account_number = ? AND id != ?";
+
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, accountNumber);
+            statement.setLong(2, customerIdToIgnore);
             try (ResultSet rs = statement.executeQuery()) {
                 if (rs.next()) {
                     return rs.getInt(1) > 0;
@@ -117,10 +152,12 @@ public class CustomerDAO implements ICustomerDAO {
     }
 
     @Override
-    public boolean existsByEmail(String email) {
-        String sql = "SELECT COUNT(*) FROM customers WHERE email = ?";
+    public boolean existsByEmail(String email, Long customerIdToIgnore) {
+        String sql = "SELECT COUNT(*) FROM customers WHERE email = ? AND id != ?";
+
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, email);
+            statement.setLong(2, customerIdToIgnore);
             try (ResultSet rs = statement.executeQuery()) {
                 if (rs.next()) {
                     return rs.getInt(1) > 0;

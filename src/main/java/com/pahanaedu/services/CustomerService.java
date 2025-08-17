@@ -28,17 +28,25 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public Customer addCustomer(Customer customer) throws ValidationException {
-        validateCustomerData(customer);
-
+        validateCustomerData(customer, 0L);
         return customerDAO.create(customer);
     }
 
-    private void validateCustomerData(Customer customer) throws ValidationException {
+    public void updateCustomer(Customer customer) throws ValidationException {
+        validateCustomerData(customer, customer.getId());
+        customerDAO.update(customer);
+    }
+
+    private void validateCustomerData(Customer customer, Long customerIdToIgnore) throws ValidationException {
+        if (customerIdToIgnore > 0 && customer.getId() == null) {
+            throw new ValidationException("Customer ID is required for an update.");
+        }
+
         if (customer.getAccountNumber() == null || customer.getAccountNumber().trim().isEmpty()) {
             throw new ValidationException("Account Number cannot be empty.");
         }
-        if (customerDAO.existsByAccountNumber(customer.getAccountNumber())) {
-            throw new ValidationException("An account with this Account Number already exists.");
+        if (customerDAO.existsByAccountNumber(customer.getAccountNumber(), customerIdToIgnore)) {
+            throw new ValidationException("Another account with this Account Number already exists.");
         }
 
         if (customer.getFullName() == null || customer.getFullName().trim().isEmpty()) {
@@ -51,9 +59,8 @@ public class CustomerService implements ICustomerService {
         if (!customer.getEmail().matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
             throw new ValidationException("Invalid email format.");
         }
-        if (customerDAO.existsByEmail(customer.getEmail())) {
-            throw new ValidationException("An account with this Email already exists.");
+        if (customerDAO.existsByEmail(customer.getEmail(), customerIdToIgnore)) {
+            throw new ValidationException("Another account with this Email already exists.");
         }
-
     }
 }

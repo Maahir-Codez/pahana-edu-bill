@@ -77,7 +77,7 @@
                     </c:if>
                 </td>
                 <td class="actions">
-                    <a href="#" class="edit-link">Edit</a>
+                    <a href="${pageContext.request.contextPath}/customers/edit?id=${customer.id}" class="edit-link">Edit</a>
                     <a href="#" class="delete-link">Delete</a>
                 </td>
             </tr>
