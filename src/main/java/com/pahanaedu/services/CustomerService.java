@@ -63,4 +63,9 @@ public class CustomerService implements ICustomerService {
             throw new ValidationException("Another account with this Email already exists.");
         }
     }
+
+    @Override
+    public void deactivateCustomer(long id) {
+        customerDAO.deactivate(id);
+    }
 }

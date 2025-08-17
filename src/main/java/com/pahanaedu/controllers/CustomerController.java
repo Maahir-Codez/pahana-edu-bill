@@ -57,6 +57,9 @@ public class CustomerController extends HttpServlet {
             case "/edit":
                 updateCustomer(request, response);
                 break;
+            case "/delete":
+                deleteCustomer(request, response);
+                break;
             default:
                 response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
@@ -155,6 +158,16 @@ public class CustomerController extends HttpServlet {
             request.setAttribute("customer", customerWithError);
 
             request.getRequestDispatcher("/views/edit-customer.jsp").forward(request, response);
+        }
+    }
+
+    private void deleteCustomer(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        try {
+            long id = Long.parseLong(request.getParameter("id"));
+            customerService.deactivateCustomer(id);
+            response.sendRedirect(request.getContextPath() + "/customers/list");
+        } catch (NumberFormatException e) {
+            response.sendRedirect(request.getContextPath() + "/customers/list");
         }
     }
 

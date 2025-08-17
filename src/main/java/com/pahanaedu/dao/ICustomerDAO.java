@@ -11,4 +11,5 @@ public interface ICustomerDAO {
     void update(Customer customer);
     boolean existsByAccountNumber(String accountNumber, Long customerIdToIgnore);
     boolean existsByEmail(String email, Long customerIdToIgnore);
+    void deactivate(long id);
 }

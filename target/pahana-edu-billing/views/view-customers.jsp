@@ -60,27 +60,32 @@
         </thead>
         <tbody>
         <c:forEach var="customer" items="${customerList}">
-            <tr>
-                <td><c:out value="${customer.accountNumber}"/></td>
-                <td><c:out value="${customer.fullName}"/></td>
-                <td><c:out value="${customer.email}"/></td>
-                <td><c:out value="${customer.phoneNumber}"/></td>
-                <td>
-                    <%= DateTimeUtil.formatLocalDateTime(((com.pahanaedu.models.Customer) pageContext.findAttribute("customer")).getDateRegistered()) %>
-                </td>
-                <td>
-                    <c:if test="${customer.active}">
-                        <span style="color: green;">Active</span>
-                    </c:if>
-                    <c:if test="${not customer.active}">
-                        <span style="color: red;">Inactive</span>
-                    </c:if>
-                </td>
-                <td class="actions">
-                    <a href="${pageContext.request.contextPath}/customers/edit?id=${customer.id}" class="edit-link">Edit</a>
-                    <a href="#" class="delete-link">Delete</a>
-                </td>
-            </tr>
+            <c:if test="${customer.active}">
+                <tr>
+                    <td><c:out value="${customer.accountNumber}"/></td>
+                    <td><c:out value="${customer.fullName}"/></td>
+                    <td><c:out value="${customer.email}"/></td>
+                    <td><c:out value="${customer.phoneNumber}"/></td>
+                    <td>
+                        <%= DateTimeUtil.formatLocalDateTime(((com.pahanaedu.models.Customer) pageContext.findAttribute("customer")).getDateRegistered()) %>
+                    </td>
+                    <td>
+                        <c:if test="${customer.active}">
+                            <span style="color: green;">Active</span>
+                        </c:if>
+                        <c:if test="${not customer.active}">
+                            <span style="color: red;">Inactive</span>
+                        </c:if>
+                    </td>
+                    <td class="actions">
+                        <a href="${pageContext.request.contextPath}/customers/edit?id=${customer.id}" class="edit-link">Edit</a>
+                        <form action="${pageContext.request.contextPath}/customers/delete" method="post" style="display: inline;" onsubmit="return confirm('Are you sure you want to deactivate this customer?');">
+                            <input type="hidden" name="id" value="${customer.id}">
+                            <button type="submit" class="delete-link" style="background:none; border:none; padding:0; color:#dc3545; cursor:pointer; font-size: 1em;">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            </c:if>
         </c:forEach>
         <c:if test="${empty customerList}">
             <tr>

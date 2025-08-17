@@ -116,7 +116,6 @@ public class CustomerDAO implements ICustomerDAO {
             statement.setString(7, customer.getEmail());
             statement.setBoolean(8, customer.isActive());
 
-            // Note: date_registered is not updated as it's a fixed historical record
             statement.setDouble(9, customer.getUnitsConsumed());
             statement.setLong(10, customer.getId()); // The ID for the WHERE clause
 
@@ -134,7 +133,6 @@ public class CustomerDAO implements ICustomerDAO {
 
     @Override
     public boolean existsByAccountNumber(String accountNumber, Long customerIdToIgnore) {
-        // Build the query. The second part of the WHERE clause is conditional.
         String sql = "SELECT COUNT(*) FROM customers WHERE account_number = ? AND id != ?";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -167,5 +165,23 @@ public class CustomerDAO implements ICustomerDAO {
             e.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public void deactivate(long id) {
+        String sql = "UPDATE customers SET is_active = false WHERE id = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setLong(1, id);
+
+            int affectedRows = statement.executeUpdate();
+
+            if (affectedRows == 0) {
+                System.out.println("Warning: No customer found with ID " + id + " to deactivate.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error deactivating customer in database.", e);
+        }
     }
 }
