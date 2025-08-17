@@ -63,4 +63,72 @@ public class CustomerDAO implements ICustomerDAO {
         customer.setUnitsConsumed(rs.getDouble("units_consumed"));
         return customer;
     }
+
+    @Override
+    public Customer create(Customer customer) {
+        String sql = "INSERT INTO customers (account_number, full_name, address, city, postal_code, phone_number, email, date_registered, is_active, units_consumed) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            statement.setString(1, customer.getAccountNumber());
+            statement.setString(2, customer.getFullName());
+            statement.setString(3, customer.getAddress());
+            statement.setString(4, customer.getCity());
+            statement.setString(5, customer.getPostalCode());
+            statement.setString(6, customer.getPhoneNumber());
+            statement.setString(7, customer.getEmail());
+            statement.setTimestamp(8, java.sql.Timestamp.valueOf(customer.getDateRegistered()));
+            statement.setBoolean(9, customer.isActive());
+            statement.setDouble(10, customer.getUnitsConsumed());
+
+            int affectedRows = statement.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Creating customer failed, no rows affected.");
+            }
+
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    customer.setId(generatedKeys.getLong(1));
+                    return customer;
+                } else {
+                    throw new SQLException("Creating customer failed, no ID obtained.");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // In a real application, you'd throw a custom DataAccessException
+            throw new RuntimeException("Error creating customer in database.", e);
+        }
+    }
+
+    @Override
+    public boolean existsByAccountNumber(String accountNumber) {
+        String sql = "SELECT COUNT(*) FROM customers WHERE account_number = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, accountNumber);
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        String sql = "SELECT COUNT(*) FROM customers WHERE email = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, email);
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

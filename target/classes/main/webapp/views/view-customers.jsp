@@ -43,7 +43,7 @@
 <div class="container">
     <div class="page-header">
         <h1>Customer List</h1>
-        <a href="#" class="btn-primary">Add New Customer</a> <%-- Link to be implemented next --%>
+        <a href="${pageContext.request.contextPath}/customers/add" class="btn-primary">Add New Customer</a>
     </div>
 
     <table>
