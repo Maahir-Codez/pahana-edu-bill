@@ -63,3 +63,38 @@ INSERT INTO items (sku, name, category, author, price, stock_quantity) VALUES
                                                                            ('BOOK-HC-001', 'The Midnight Library', 'Fiction', 'Matt Haig', 15.50, 50),
                                                                            ('BOOK-PB-002', 'Atomic Habits', 'Self-Help', 'James Clear', 12.99, 75),
                                                                            ('STAT-PEN-001', 'Gel Pens - 12 Pack', 'Stationery', NULL, 8.75, 120);
+
+
+-- Drop tables if they exist (in reverse order of creation due to foreign keys)
+DROP TABLE IF EXISTS order_items;
+DROP TABLE IF EXISTS orders;
+
+-- Create the orders table
+-- This table holds the main information for each order.
+CREATE TABLE orders (
+                        id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                        customer_id BIGINT NOT NULL,
+                        order_date DATETIME NOT NULL,
+                        status ENUM('PENDING', 'PAID', 'CANCELLED', 'COMPLETED') NOT NULL,
+                        subtotal DECIMAL(10, 2) NOT NULL,
+                        discount_amount DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+                        tax_amount DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+                        total_amount DECIMAL(10, 2) NOT NULL,
+    -- Foreign key constraint to link with the customers table
+                        CONSTRAINT fk_orders_customer FOREIGN KEY (customer_id) REFERENCES customers(id)
+);
+
+-- Create the order_items table
+-- This is a "join table" that links items to orders and stores quantity/price info.
+CREATE TABLE order_items (
+                             id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                             order_id BIGINT NOT NULL,
+                             item_id BIGINT NOT NULL,
+                             quantity INT NOT NULL,
+                             price_at_purchase DECIMAL(10, 2) NOT NULL,
+                             line_total DECIMAL(10, 2) NOT NULL,
+    -- Foreign key constraint to link with the orders table
+                             CONSTRAINT fk_order_items_order FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+    -- Foreign key constraint to link with the items table
+                             CONSTRAINT fk_order_items_item FOREIGN KEY (item_id) REFERENCES items(id)
+);
