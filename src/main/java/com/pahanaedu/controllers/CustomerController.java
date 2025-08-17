@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-@WebServlet("/customers/*")
+@WebServlet("/customers")
 public class CustomerController extends HttpServlet {
     private ICustomerService customerService;
 
@@ -25,19 +25,19 @@ public class CustomerController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getPathInfo();
+        String action = request.getParameter("action");
         if (action == null) {
-            action = "/list";
+            action = "list";
         }
 
         switch (action) {
-            case "/list":
+            case "list":
                 listCustomers(request, response);
                 break;
-            case "/add":
+            case "add":
                 showAddCustomerForm(request, response);
                 break;
-            case "/edit":
+            case "edit":
                 showEditCustomerForm(request, response);
                 break;
             default:
@@ -47,17 +47,17 @@ public class CustomerController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getPathInfo();
+        String action = request.getParameter("action");
         if (action == null) { response.sendError(HttpServletResponse.SC_BAD_REQUEST); return; }
 
         switch(action) {
-            case "/add":
+            case "add":
                 addCustomer(request, response);
                 break;
-            case "/edit":
+            case "edit":
                 updateCustomer(request, response);
                 break;
-            case "/delete":
+            case "delete":
                 deleteCustomer(request, response);
                 break;
             default:
@@ -91,7 +91,7 @@ public class CustomerController extends HttpServlet {
         try {
             customerService.addCustomer(newCustomer);
 
-            response.sendRedirect(request.getContextPath() + "/customers/list");
+            response.sendRedirect(request.getContextPath() + "/customers?action=list");
 
         } catch (ValidationException e) {
            request.setAttribute("errorMessage", e.getMessage());
@@ -147,7 +147,7 @@ public class CustomerController extends HttpServlet {
 
             customerService.updateCustomer(customerToUpdate);
 
-            response.sendRedirect(request.getContextPath() + "/customers/list");
+            response.sendRedirect(request.getContextPath() + "/customers?action=list");
 
         } catch (ValidationException | NumberFormatException e) {
             request.setAttribute("errorMessage", e.getMessage());
@@ -165,9 +165,9 @@ public class CustomerController extends HttpServlet {
         try {
             long id = Long.parseLong(request.getParameter("id"));
             customerService.deactivateCustomer(id);
-            response.sendRedirect(request.getContextPath() + "/customers/list");
+            response.sendRedirect(request.getContextPath() + "/customers?action=list");
         } catch (NumberFormatException e) {
-            response.sendRedirect(request.getContextPath() + "/customers/list");
+            response.sendRedirect(request.getContextPath() + "/customers?action=list");
         }
     }
 }

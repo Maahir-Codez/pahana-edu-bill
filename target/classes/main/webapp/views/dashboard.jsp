@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> <%-- Import JSTL Core library --%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,13 +7,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Pahana Edu</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <style>
-        body { font-family: sans-serif; background-color: #f8f9fa; margin: 0; }
-        .navbar { background-color: #343a40; padding: 1rem 2rem; color: white; display: flex; justify-content: space-between; align-items: center; }
-        .navbar a { color: white; text-decoration: none; font-size: 1.1rem; }
-        .navbar .logout-btn { background-color: #dc3545; padding: 0.5rem 1rem; border-radius: 5px; }
-        .navbar .logout-btn:hover { background-color: #c82333; }
-        .container { padding: 2rem; }
         .welcome-header { margin-bottom: 2rem; }
         .welcome-header h1 { color: #333; }
         .welcome-header p { color: #666; font-size: 1.1rem; }
@@ -30,16 +25,10 @@
 <body>
 
 <c:if test="${empty sessionScope.loggedInUser}">
-    <c:redirect url="/auth/login"/>
+    <c:redirect url="/auth?action=login"/>
 </c:if>
 
-<div class="navbar">
-    <a href="${pageContext.request.contextPath}/dashboard">Pahana Edu Billing System</a>
-    <div>
-        <span>Welcome, <c:out value="${sessionScope.loggedInUser.fullName}"/>!</span>
-        <a href="${pageContext.request.contextPath}/auth/logout" class="logout-btn">Logout</a>
-    </div>
-</div>
+<%@ include file="_navbar.jsp" %>
 
 <div class="container">
     <div class="welcome-header">
@@ -53,7 +42,7 @@
             <div class="card-body">
                 <h3 class="card-title">Customer Management</h3>
                 <p class="card-text">View, add, or edit customer accounts and their details.</p>
-                <a href="${pageContext.request.contextPath}/customers/list" class="card-link">View Customers</a>
+                <a href="${pageContext.request.contextPath}/customers?action=list" class="card-link">View Customers</a>
             </div>
         </div>
 
@@ -62,7 +51,7 @@
             <div class="card-body">
                 <h3 class="card-title">Item Management</h3>
                 <p class="card-text">Manage the bookshop's inventory of items and their prices.</p>
-                <a href="#" class="card-link">Manage Items</a> <%-- Link to be implemented later --%>
+                <a href="${pageContext.request.contextPath}/items?action=list" class="card-link">Manage Items</a>
             </div>
         </div>
 

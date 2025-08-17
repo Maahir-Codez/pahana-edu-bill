@@ -8,42 +8,20 @@
 <head>
     <meta charset="UTF-8">
     <title>View Customers</title>
-    <%-- Reusing dashboard styles for consistency --%>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"> <%-- We should create a shared CSS file --%>
-    <style>
-        /* (You can copy styles from dashboard.jsp here or link a shared stylesheet) */
-        body { font-family: sans-serif; background-color: #f8f9fa; margin: 0; }
-        .navbar { background-color: #343a40; padding: 1rem 2rem; color: white; display: flex; justify-content: space-between; align-items: center; }
-        .navbar a { color: white; text-decoration: none; font-size: 1.1rem; }
-        .navbar .logout-btn { background-color: #dc3545; padding: 0.5rem 1rem; border-radius: 5px; }
-        .container { padding: 2rem; max-width: 1200px; margin: auto;}
-        .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
-        .btn-primary { background-color: #007bff; color: white; padding: 0.6rem 1.2rem; border-radius: 5px; text-decoration: none; }
-        table { width: 100%; border-collapse: collapse; background: white; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        th, td { padding: 1rem; text-align: left; border-bottom: 1px solid #dee2e6; }
-        th { background-color: #f2f2f2; }
-        .actions a { margin-right: 0.5rem; text-decoration: none; }
-        .actions .edit-link { color: #ffc107; }
-        .actions .delete-link { color: #dc3545; }
-    </style>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+
 </head>
 <body>
 <c:if test="${empty sessionScope.loggedInUser}">
-    <c:redirect url="/auth/login"/>
+    <c:redirect url="/auth?action=login"/>
 </c:if>
 
-<div class="navbar">
-    <a href="${pageContext.request.contextPath}/dashboard">Pahana Edu Billing System</a>
-    <div>
-        <span>Welcome, <c:out value="${sessionScope.loggedInUser.fullName}"/>!</span>
-        <a href="${pageContext.request.contextPath}/auth/logout" class="logout-btn">Logout</a>
-    </div>
-</div>
+<%@ include file="_navbar.jsp" %>
 
 <div class="container">
     <div class="page-header">
         <h1>Customer List</h1>
-        <a href="${pageContext.request.contextPath}/customers/add" class="btn-primary">Add New Customer</a>
+        <a href="${pageContext.request.contextPath}/customers?action=add" class="btn-primary">Add New Customer</a>
     </div>
 
     <table>
@@ -78,8 +56,8 @@
                         </c:if>
                     </td>
                     <td class="actions">
-                        <a href="${pageContext.request.contextPath}/customers/edit?id=${customer.id}" class="edit-link">Edit</a>
-                        <form action="${pageContext.request.contextPath}/customers/delete" method="post" style="display: inline;" onsubmit="return confirm('Are you sure you want to deactivate this customer?');">
+                        <a href="${pageContext.request.contextPath}/customers?action=edit?id=${customer.id}" class="edit-link">Edit</a>
+                        <form action="${pageContext.request.contextPath}/customers?action=delete" method="post" style="display: inline;" onsubmit="return confirm('Are you sure you want to deactivate this customer?');">
                             <input type="hidden" name="id" value="${customer.id}">
                             <button type="submit" class="delete-link" style="background:none; border:none; padding:0; color:#dc3545; cursor:pointer; font-size: 1em;">Delete</button>
                         </form>

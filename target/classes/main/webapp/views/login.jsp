@@ -22,7 +22,6 @@
 <div class="login-container">
     <h2>System Login</h2>
 
-    <%-- Check for an error message from the servlet and display it if it exists --%>
     <%
         String errorMessage = (String) request.getAttribute("errorMessage");
         if (errorMessage != null && !errorMessage.isEmpty()) {
@@ -32,8 +31,7 @@
         }
     %>
 
-    <%-- The action attribute points to our servlet's URL pattern --%>
-    <form action="${pageContext.request.contextPath}/auth/login" method="post">
+    <form action="${pageContext.request.contextPath}/auth?action=login" method="post">
         <div class="form-group">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
@@ -45,7 +43,7 @@
         <button type="submit">Login</button>
     </form>
     <div class="register-link">
-        <p>Don't have an account? <a href="${pageContext.request.contextPath}/auth/register">Register here</a></p>
+        <p>Don't have an account? <a href="${pageContext.request.contextPath}/auth?action=register">Register here</a></p>
     </div>
 </div>
 

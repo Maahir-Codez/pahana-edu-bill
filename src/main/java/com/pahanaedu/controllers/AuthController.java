@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet("/auth/*")
+@WebServlet("/auth")
 public class AuthController extends HttpServlet {
     private IAuthService authService;
 
@@ -25,19 +25,19 @@ public class AuthController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getPathInfo();
+        String action = request.getParameter("action");
         if (action == null) {
-            action = "/login";
+            action = "login";
         }
 
         switch (action) {
-            case "/login":
+            case "login":
                 showLoginPage(request, response);
                 break;
-            case "/logout":
+            case "logout":
                 logout(request, response);
                 break;
-            case "/register": // Add this case
+            case "register":
                 showRegisterPage(request, response);
                 break;
             default:
@@ -47,17 +47,17 @@ public class AuthController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getPathInfo();
+        String action = request.getParameter("action");
         if (action == null) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
 
         switch (action) {
-            case "/login":
+            case "login":
                 handleLogin(request, response);
                 break;
-            case "/register": // Add this case
+            case "register":
                 handleRegister(request, response);
                 break;
             default:
@@ -92,7 +92,7 @@ public class AuthController extends HttpServlet {
         if (session != null) {
             session.invalidate();
         }
-        response.sendRedirect(request.getContextPath() + "/auth/login?status=logout_success");
+        response.sendRedirect(request.getContextPath() + "/auth?action=login&status=logout_success");
     }
 
     private void showRegisterPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -108,7 +108,7 @@ public class AuthController extends HttpServlet {
         try {
             authService.registerUser(username, password, fullName, email);
             // On success, redirect to the login page with a success message
-            response.sendRedirect(request.getContextPath() + "/auth/login?status=reg_success");
+            response.sendRedirect(request.getContextPath() + "/auth?action=login&status=reg_success");
         } catch (RegistrationException e) {
             // On failure, forward back to the register page with an error
             request.setAttribute("errorMessage", e.getMessage());

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Pahana Edu - Register</title>
-    <%-- You can reuse the same styles from login.jsp --%>
+
     <style>
         body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #f4f4f4; padding: 20px 0; }
         .register-container { background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); width: 350px; }
@@ -33,7 +33,7 @@
         }
     %>
 
-    <form action="${pageContext.request.contextPath}/auth/register" method="post">
+    <form action="${pageContext.request.contextPath}/auth?action=register" method="post">
         <div class="form-group">
             <label for="fullName">Full Name:</label>
             <input type="text" id="fullName" name="fullName" required>
@@ -53,7 +53,7 @@
         <button type="submit">Register</button>
     </form>
     <div class="login-link">
-        <p>Already have an account? <a href="${pageContext.request.contextPath}/auth/login">Login here</a></p>
+        <p>Already have an account? <a href="${pageContext.request.contextPath}/auth?action=login">Login here</a></p>
     </div>
 </div>
 
