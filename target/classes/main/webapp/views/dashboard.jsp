@@ -58,9 +58,13 @@
         <!-- Billing Card -->
         <div class="card">
             <div class="card-body">
-                <h3 class="card-title">Billing & Invoicing</h3>
-                <p class="card-text">Generate and print new bills for customers based on consumption.</p>
-                <a href="${pageContext.request.contextPath}/orders?action=create" class="card-link">Create New Order</a>
+                <h3 class="card-title">Orders & Billing</h3>
+                <p class="card-text">Create new orders for customers or view the history of past orders and bills.</p>
+
+                <div class="card-link-group">
+                    <a href="${pageContext.request.contextPath}/orders?action=create" class="card-link">Create New Order</a>
+                    <a href="${pageContext.request.contextPath}/orders?action=list" class="card-link secondary">View Order History</a>
+                </div>
             </div>
         </div>
 

@@ -117,7 +117,6 @@
         const subtotalCell = document.getElementById('subtotalCell');
         const orderForm = document.getElementById('orderForm');
         const errorDisplay = document.getElementById('item-adder-error');
-        const emptyCartRow = document.getElementById('empty-cart-row');
 
         let cart = new Map();
 
@@ -189,7 +188,7 @@
             if (event.target.classList.contains('remove-item-btn')) {
                 const itemIdToRemove = event.target.dataset.id;
                 cart.delete(itemIdToRemove);
-                renderCart(); // Re-render the cart after removal
+                renderCart();
             }
         }
 
@@ -197,7 +196,25 @@
             if (cart.size === 0) {
                 event.preventDefault();
                 alert('Cannot create an order with no items.');
+                return;
             }
+
+            const container = document.getElementById('cart-items-container');
+            container.innerHTML = '';
+
+            cart.forEach((itemData, itemId) => {
+                const idInput = document.createElement('input');
+                idInput.type = 'hidden';
+                idInput.name = 'itemIds[]';
+                idInput.value = itemData.id;
+                container.appendChild(idInput);
+
+                const qtyInput = document.createElement('input');
+                qtyInput.type = 'hidden';
+                qtyInput.name = 'quantities[]';
+                qtyInput.value = itemData.quantity;
+                container.appendChild(qtyInput);
+            });
         }
 
         function validateItemAddition(itemId, selectedOption, quantity) {

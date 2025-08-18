@@ -11,6 +11,9 @@ body {
     margin: auto;
 }
 
+.card-link-group { display: flex; gap: 10px; }
+.card-link.secondary { background-color: #6c757d; }
+
 .navbar {
     background-color: #343a40;
     padding: 1rem 2rem;
@@ -91,7 +94,6 @@ textarea {
 textarea {
     resize: vertical;
 }
-
 
 /* --- Button & Link Styles --- */
 .button-group {

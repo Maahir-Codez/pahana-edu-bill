@@ -6,6 +6,6 @@ import java.util.Optional;
 
 public interface IOrderDAO {
     Order createOrder(Order order);
-    Optional<Order> findOrderById(long id);
-    List<Order> findOrdersByCustomerId(long customerId);
+    Optional<Order> findById(long id);
+    List<Order> findAll();
 }

@@ -13,8 +13,6 @@ public class Order {
     private LocalDateTime orderDate;
     private OrderStatus status;
     private BigDecimal subtotal;
-    private BigDecimal discountAmount;
-    private BigDecimal taxAmount;
     private BigDecimal totalAmount;
 
     private List<OrderItem> orderItems;
@@ -24,8 +22,6 @@ public class Order {
         this.orderDate = LocalDateTime.now();
         this.status = OrderStatus.PENDING;
         this.subtotal = BigDecimal.ZERO;
-        this.discountAmount = BigDecimal.ZERO;
-        this.taxAmount = BigDecimal.ZERO;
         this.totalAmount = BigDecimal.ZERO;
     }
 
@@ -34,17 +30,6 @@ public class Order {
         this();
         this.customerId = customerId;
     }
-
-
-    public void addItem(Item item, int quantity) {
-        OrderItem orderItem = new OrderItem(item.getId(), this.id, quantity, item.getPrice());
-
-        this.orderItems.add(orderItem);
-
-        BigDecimal lineItemTotal = item.getPrice().multiply(new BigDecimal(quantity));
-        this.subtotal = this.subtotal.add(lineItemTotal);
-    }
-
 
 
     public Long getId() {
@@ -85,22 +70,6 @@ public class Order {
 
     public void setSubtotal(BigDecimal subtotal) {
         this.subtotal = subtotal;
-    }
-
-    public BigDecimal getDiscountAmount() {
-        return discountAmount;
-    }
-
-    public void setDiscountAmount(BigDecimal discountAmount) {
-        this.discountAmount = discountAmount;
-    }
-
-    public BigDecimal getTaxAmount() {
-        return taxAmount;
-    }
-
-    public void setTaxAmount(BigDecimal taxAmount) {
-        this.taxAmount = taxAmount;
     }
 
     public BigDecimal getTotalAmount() {

@@ -10,6 +10,7 @@ public class OrderItem {
     private int quantity;
     private BigDecimal priceAtPurchase;
     private BigDecimal lineTotal;
+    private transient Item item;
 
     public OrderItem() {
     }
@@ -70,6 +71,10 @@ public class OrderItem {
     public void setLineTotal(BigDecimal lineTotal) {
         this.lineTotal = lineTotal;
     }
+
+    public Item getItem() { return item; }
+
+    public void setItem(Item item) { this.item = item; }
 
     @Override
     public String toString() {

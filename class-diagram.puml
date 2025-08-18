@@ -1,0 +1,149 @@
+@startuml PahanaEdu Billing System - Detailed Class Diagram
+
+' Skinparam for a clean and professional look
+skinparam class {
+    BackgroundColor White
+    ArrowColor #2C3E50
+    BorderColor #2C3E50
+    FontName Arial
+    FontSize 14
+}
+skinparam enum {
+    BackgroundColor White
+    ArrowColor #2C3E50
+    BorderColor #2C3E50
+    FontName Arial
+    FontSize 14
+}
+
+' Abstract classes and Interfaces could be styled differently if needed
+' skinparam abstract class BorderStyle dashed
+
+' --- Enums ---
+enum Role {
+    ADMIN
+    STAFF
+}
+
+enum OrderStatus {
+    PENDING
+    PAID
+    CANCELLED
+    COMPLETED
+}
+
+enum PaymentStatus {
+    PENDING
+    COMPLETED
+    FAILED
+    REFUNDED
+}
+
+' --- Model Classes ---
+class User {
+  -id: Long
+  -username: String
+  -passwordHash: String
+  -fullName: String
+  -email: String
+  -role: Role
+  -isActive: boolean
+  -createdAt: LocalDateTime
+  -lastLogin: LocalDateTime
+}
+
+class Administrator extends User {
+  +Administrator()
+  +Administrator(username, passwordHash, fullName, email)
+}
+
+class Customer {
+  -id: Long
+  -accountNumber: String
+  -fullName: String
+  -address: String
+  -city: String
+  -postalCode: String
+  -phoneNumber: String
+  -email: String
+  -dateRegistered: LocalDateTime
+  -isActive: boolean
+  -unitsConsumed: double
+}
+
+class Item {
+  -id: Long
+  -sku: String
+  -name: String
+  -description: String
+  -category: String
+  -author: String
+  -price: BigDecimal
+  -stockQuantity: int
+  -isActive: boolean
+  -createdAt: LocalDateTime
+  -updatedAt: LocalDateTime
+}
+
+class Order {
+  -id: Long
+  -customerId: Long
+  -orderDate: LocalDateTime
+  -status: OrderStatus
+  -subtotal: BigDecimal
+  -totalAmount: BigDecimal
+  +addItem(item: Item, quantity: int)
+}
+
+class OrderItem {
+  -id: Long
+  -orderId: Long
+  -itemId: Long
+  -quantity: int
+  -priceAtPurchase: BigDecimal
+  -lineTotal: BigDecimal
+  -item: Item <<transient>>
+}
+
+class Bill {
+  -id: Long
+  -customerId: Long
+  -billNumber: String
+  -billingPeriodStart: LocalDate
+  -billingPeriodEnd: LocalDate
+  -unitsConsumed: double
+  -pricePerUnit: BigDecimal
+  -amountDue: BigDecimal
+  -dueDate: LocalDate
+  -isPaid: boolean
+}
+
+class Payment {
+  -id: Long
+  -orderId: Long
+  -amount: BigDecimal
+  -paymentMethod: String
+  -transactionId: String
+  -status: PaymentStatus
+  -paymentDate: LocalDateTime
+}
+
+' --- Relationships ---
+' Inheritance
+User <|-- Administrator
+
+' Associations & Compositions
+User ..> Role : uses
+
+Customer "1" -- "0..*" Order : places >
+Customer "1" -- "0..*" Bill : receives >
+
+Order "1" *-- "1..*" OrderItem : contains
+Order ..> OrderStatus : has
+
+OrderItem "*" -- "1" Item : refers to
+
+Order "1" -- "0..*" Payment : has >
+Payment ..> PaymentStatus : has
+
+@enduml
