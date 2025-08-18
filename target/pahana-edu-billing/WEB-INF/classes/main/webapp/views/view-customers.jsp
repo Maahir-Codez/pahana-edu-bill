@@ -21,7 +21,7 @@
 <div class="container">
     <div class="page-header">
         <h1>Customer List</h1>
-        <a href="${pageContext.request.contextPath}/customers?action=add" class="btn-primary">Add New Customer</a>
+        <a href="${pageContext.request.contextPath}/customers?action=add" class="btn-primary" style="padding: 10px; border-radius: 5px;">Add New Customer</a>
     </div>
 
     <table>

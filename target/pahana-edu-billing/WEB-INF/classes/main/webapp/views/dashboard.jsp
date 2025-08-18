@@ -60,7 +60,7 @@
             <div class="card-body">
                 <h3 class="card-title">Billing & Invoicing</h3>
                 <p class="card-text">Generate and print new bills for customers based on consumption.</p>
-                <a href="#" class="card-link">Generate Bills</a> <%-- Link to be implemented later --%>
+                <a href="${pageContext.request.contextPath}/orders?action=create" class="card-link">Create New Order</a>
             </div>
         </div>
 
