@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d24d0e46-f0fd-4e0e-aec7-e3fd9dba65c1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pahanaedu/exceptions/ApiClientException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/class-diagram.puml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pahanaedu/dao/CustomerDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pahanaedu/dao/ICustomerDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pahanaedu/dao/IItemDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pahanaedu/dao/IOrderDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pahanaedu/dao/IUserDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pahanaedu/dao/ItemDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pahanaedu/dao/OrderDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pahanaedu/dao/UserDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pahanaedu/exceptions/AuthenticationException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pahanaedu/exceptions/RegistrationException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pahanaedu/exceptions/ValidationException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pahanaedu/services/AuthService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pahanaedu/services/CustomerService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pahanaedu/services/IAuthService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pahanaedu/services/ICustomerService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pahanaedu/services/IItemService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pahanaedu/services/IOrderService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pahanaedu/services/ItemService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pahanaedu/services/OrderService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pahanaedu/utils/DatabaseConnection.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pahanaedu/utils/PasswordUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/database.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pahanaedu/controllers/AuthController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pahanaedu/controllers/CustomerController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pahanaedu/controllers/DashboardController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pahanaedu/controllers/HelpController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pahanaedu/controllers/ItemController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pahanaedu/controllers/OrderController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pahanaedu/dao/CustomerDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pahanaedu/dao/ICustomerDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pahanaedu/dao/IItemDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pahanaedu/dao/IOrderDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pahanaedu/dao/IUserDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pahanaedu/dao/ItemDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pahanaedu/dao/OrderDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pahanaedu/dao/UserDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pahanaedu/exceptions/AuthenticationException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pahanaedu/exceptions/RegistrationException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pahanaedu/exceptions/ValidationException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pahanaedu/models/Administrator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pahanaedu/models/Bill.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pahanaedu/models/Customer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pahanaedu/models/Item.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pahanaedu/models/Order.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pahanaedu/models/OrderItem.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pahanaedu/models/OrderStatus.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pahanaedu/models/Role.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pahanaedu/models/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pahanaedu/services/AuthService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pahanaedu/services/CustomerService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pahanaedu/services/IAuthService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pahanaedu/services/ICustomerService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pahanaedu/services/IItemService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pahanaedu/services/IOrderService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pahanaedu/services/ItemService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pahanaedu/services/OrderService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pahanaedu/utils/DatabaseConnection.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pahanaedu/utils/DateTimeUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pahanaedu/utils/PasswordUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing.war" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/classes/com/pahanaedu/controllers/AuthController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/classes/com/pahanaedu/controllers/CustomerController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/classes/com/pahanaedu/controllers/DashboardController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/classes/com/pahanaedu/controllers/HelpController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/classes/com/pahanaedu/controllers/ItemController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/classes/com/pahanaedu/controllers/OrderController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/classes/com/pahanaedu/dao/CustomerDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/classes/com/pahanaedu/dao/ICustomerDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/classes/com/pahanaedu/dao/IItemDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/classes/com/pahanaedu/dao/IOrderDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/classes/com/pahanaedu/dao/IUserDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/classes/com/pahanaedu/dao/ItemDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/classes/com/pahanaedu/dao/OrderDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/classes/com/pahanaedu/dao/UserDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/classes/com/pahanaedu/exceptions/AuthenticationException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/classes/com/pahanaedu/exceptions/RegistrationException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/classes/com/pahanaedu/exceptions/ValidationException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/classes/com/pahanaedu/models/Administrator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/classes/com/pahanaedu/models/Bill.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/classes/com/pahanaedu/models/Customer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/classes/com/pahanaedu/models/Item.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/classes/com/pahanaedu/models/Order.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/classes/com/pahanaedu/models/OrderItem.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/classes/com/pahanaedu/models/OrderStatus.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/classes/com/pahanaedu/models/Role.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/classes/com/pahanaedu/models/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/classes/com/pahanaedu/services/AuthService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/classes/com/pahanaedu/services/CustomerService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/classes/com/pahanaedu/services/IAuthService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/classes/com/pahanaedu/services/ICustomerService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/classes/com/pahanaedu/services/IItemService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/classes/com/pahanaedu/services/IOrderService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/classes/com/pahanaedu/services/ItemService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/classes/com/pahanaedu/services/OrderService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/classes/com/pahanaedu/utils/DatabaseConnection.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/classes/com/pahanaedu/utils/DateTimeUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/classes/com/pahanaedu/utils/PasswordUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/classes/database.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/lib/gson-2.10.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/lib/jakarta.activation-2.0.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/lib/jakarta.el-api-4.0.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/lib/jakarta.json-2.0.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/lib/jakarta.json-api-2.1.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/lib/jakarta.servlet.jsp.jstl-2.0.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/lib/jakarta.servlet.jsp.jstl-api-2.0.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/lib/jakarta.xml.bind-api-3.0.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/lib/mysql-connector-j-8.0.33.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/lib/protobuf-java-3.21.9.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/WEB-INF/web.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/css/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/index.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/views/_navbar.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/views/add-customer.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/views/add-item.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/views/create-order.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/views/dashboard.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/views/edit-customer.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/views/edit-item.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/views/help.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/views/login.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/views/print-bill.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/views/register.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/views/view-customers.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/views/view-items.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pahana-edu-billing/views/view-orders.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/2025-08-18T23-30-53_525.dumpstream" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.pahanaedu.models.OrderItemTest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/com.pahanaedu.models.OrderItemTest.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/pahanaedu/models/OrderItemTest.class" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 8
+}]]></component>
+  <component name="ProjectId" id="31UN4O3zcrvkhjrPk67yLwlmIkM" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Maven.pahana-edu-web [clean].executor": "Run",
+    "Maven.pahana-edu-web [install].executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/#A A ICBT/Advanced Programming/pahana-edu-web",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.23892.409" />
+        <option value="bundled-js-predefined-d6986cc7102b-e03c56caf84a-JavaScript-IU-252.23892.409" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d24d0e46-f0fd-4e0e-aec7-e3fd9dba65c1" name="Changes" comment="" />
+      <created>1755574499125</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1755574499125</updated>
+      <workItem from="1755574500374" duration="498000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
