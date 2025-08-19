@@ -27,7 +27,7 @@
 </head>
 <body>
 <c:if test="${empty sessionScope.loggedInUser}"><c:redirect url="/app/auth/login"/></c:if>
-<%@ include file="_navbar.jsp" %>
+<!--<%@ include file="_navbar.jsp" %>-->
 
 <div class="container">
     <h1>Bill Details</h1>
@@ -44,7 +44,7 @@
                             </td>
                             <td class="text-right">
                                 <strong>Invoice #:</strong> ORD-${order.id}<br>
-                                <strong>Created:</strong> order.getOrderDate()
+                                <strong>Created:</strong> ${order.getOrderDate()}
                                 <br>
                             </td>
                         </tr>
