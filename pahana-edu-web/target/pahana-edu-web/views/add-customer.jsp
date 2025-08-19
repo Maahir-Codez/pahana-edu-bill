@@ -6,11 +6,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Add New Customer</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
 <body>
 <c:if test="${empty sessionScope.loggedInUser}">
-    <c:redirect url="/auth?action=login"/>
+    <c:redirect url="/app/auth/login"/>
 </c:if>
 
 <%@ include file="_navbar.jsp" %>
@@ -24,7 +24,7 @@
             <div class="error-message">${errorMessage}</div>
         </c:if>
 
-        <form action="${pageContext.request.contextPath}/customers?action=add" method="post">
+        <form action="${pageContext.request.contextPath}/app/customers/add" method="post">
             <div class="form-group">
                 <label for="accountNumber">Account Number</label>
                 <input type="text" id="accountNumber" name="accountNumber" value="<c:out value='${customer.accountNumber}'/>" required>
@@ -56,7 +56,7 @@
 
             <div class="button-group">
                 <button type="submit" class="btn btn-primary">Save Customer</button>
-                <a href="${pageContext.request.contextPath}/customers?action=list" class="btn btn-secondary">Cancel</a>
+                <a href="${pageContext.request.contextPath}/app/customers/list" class="btn btn-secondary">Cancel</a>
             </div>
         </form>
     </div>

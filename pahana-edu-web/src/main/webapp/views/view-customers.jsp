@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <title>View Customers</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
 
 </head>
 <body>
@@ -56,7 +56,7 @@
                         <a href="${pageContext.request.contextPath}/app/customers/edit?id=${customer.id}" class="edit-link">Edit</a>
                         <form action="${pageContext.request.contextPath}/app/customers/delete" method="post" style="display: inline;" onsubmit="return confirm('Are you sure you want to deactivate this customer?');">
                             <input type="hidden" name="id" value="${customer.id}">
-                            <button type="submit" class="delete-link" style="background:none; border:none; padding:0; color:#dc3545; cursor:pointer; font-size: 1em;">Delete</button>
+                            <button type="submit" class="delete-link">Delete</button>
                         </form>
                     </td>
                 </tr>

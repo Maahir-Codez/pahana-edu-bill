@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit Customer</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
 <body>
 <c:if test="${empty sessionScope.loggedInUser}">

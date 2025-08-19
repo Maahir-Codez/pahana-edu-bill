@@ -1,14 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ page import="com.pahanaedu.utils.DateTimeUtil" %>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Bill for Order ORD-${order.id}</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
     <style>
         .invoice-box { max-width: 800px; margin: auto; padding: 30px; border: 1px solid #eee; box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); font-size: 16px; line-height: 24px; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; color: #555; background: white;}
         .invoice-box table { width: 100%; line-height: inherit; text-align: left; border-collapse: collapse; }
@@ -27,7 +26,7 @@
     </style>
 </head>
 <body>
-<c:if test="${empty sessionScope.loggedInUser}"><c:redirect url="/auth?action=login"/></c:if>
+<c:if test="${empty sessionScope.loggedInUser}"><c:redirect url="/app/auth/login"/></c:if>
 <%@ include file="_navbar.jsp" %>
 
 <div class="container">
@@ -45,9 +44,7 @@
                             </td>
                             <td class="text-right">
                                 <strong>Invoice #:</strong> ORD-${order.id}<br>
-                                <strong>Created:</strong>
-                                <% com.pahanaedu.models.Order orderForScriptlet = (com.pahanaedu.models.Order) request.getAttribute("order"); %>
-                                <%= DateTimeUtil.formatLocalDateTime(orderForScriptlet.getOrderDate()) %>
+                                <strong>Created:</strong> order.getOrderDate()
                                 <br>
                             </td>
                         </tr>
@@ -75,9 +72,9 @@
                 <td class="text-right">Quantity</td>
                 <td class="text-right">Total</td>
             </tr>
-            <c:forEach var="orderItem" items="${order.orderItems}">
+            <c:forEach var="orderItem" items="${order.items}">
                 <tr class="item">
-                    <td><c:out value="${orderItem.item.name}"/></td>
+                    <td><c:out value="${orderItem.itemName}"/></td>
                     <td class="text-right"><fmt:formatNumber value="${orderItem.priceAtPurchase}" type="currency" currencySymbol="$"/></td>
                     <td class="text-right"><c:out value="${orderItem.quantity}"/></td>
                     <td class="text-right"><fmt:formatNumber value="${orderItem.lineTotal}" type="currency" currencySymbol="$"/></td>

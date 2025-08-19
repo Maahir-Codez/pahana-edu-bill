@@ -3,9 +3,11 @@ package com.pahanaedu.api.servlets;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.pahanaedu.api.dto.LoginRequestDTO;
+import com.pahanaedu.api.dto.RegisterRequestDTO;
 import com.pahanaedu.api.dto.UserDTO;
 import com.pahanaedu.api.mappers.UserMapper;
 import com.pahanaedu.exceptions.AuthenticationException;
+import com.pahanaedu.exceptions.RegistrationException;
 import com.pahanaedu.models.User;
 import com.pahanaedu.services.AuthService;
 import com.pahanaedu.services.IAuthService;
@@ -15,6 +17,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 
 @WebServlet("/api/auth/*")
 public class AuthApiServlet extends HttpServlet {
@@ -33,6 +36,8 @@ public class AuthApiServlet extends HttpServlet {
         String pathInfo = req.getPathInfo();
         if ("/login".equals(pathInfo)) {
             handleLogin(req, resp);
+        } else if ("/register".equals(pathInfo)) { // ADD THIS
+            handleRegister(req, resp);
         } else {
             resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
@@ -61,6 +66,35 @@ public class AuthApiServlet extends HttpServlet {
         } catch (Exception e) {
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             resp.getWriter().write(gson.toJson(new ErrorResponse("An unexpected server error occurred.")));
+            e.printStackTrace();
+        }
+    }
+
+    private void handleRegister(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+
+        try {
+            RegisterRequestDTO registerRequest = gson.fromJson(req.getReader(), RegisterRequestDTO.class);
+
+            User registeredUser = authService.registerUser(
+                    registerRequest.getUsername(),
+                    registerRequest.getPassword(),
+                    registerRequest.getFullName(),
+                    registerRequest.getEmail()
+            );
+
+            UserDTO userDTO = UserMapper.toDTO(registeredUser);
+
+            resp.setStatus(HttpServletResponse.SC_CREATED);
+            resp.getWriter().write(gson.toJson(userDTO));
+
+        } catch (RegistrationException e) {
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400 for validation errors
+            resp.getWriter().write(gson.toJson(Map.of("error", e.getMessage())));
+        } catch (Exception e) {
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            resp.getWriter().write(gson.toJson(Map.of("error", "An unexpected server error occurred.")));
             e.printStackTrace();
         }
     }

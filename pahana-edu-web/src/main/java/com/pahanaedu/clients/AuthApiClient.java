@@ -2,6 +2,7 @@ package com.pahanaedu.clients;
 
 import com.google.gson.Gson;
 import com.pahanaedu.api.dto.LoginRequestDTO;
+import com.pahanaedu.api.dto.RegisterRequestDTO;
 import com.pahanaedu.api.dto.UserDTO;
 import com.pahanaedu.exceptions.ApiClientException;
 
@@ -13,7 +14,7 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.Map;
 
-public class AuthApiClient {
+public class AuthApiClient extends BaseApiClient {
 
     private static final String API_BASE_URL = "http://localhost:8081/pahana-edu-api/api";
 
@@ -56,6 +57,31 @@ public class AuthApiClient {
                 errorMessage = response.body();
             }
             throw new ApiClientException(errorMessage, response.statusCode());
+        }
+    }
+
+    public UserDTO register(String username, String password, String fullName, String email) throws IOException, InterruptedException, ApiClientException {
+        RegisterRequestDTO registerRequest = new RegisterRequestDTO();
+        registerRequest.setUsername(username);
+        registerRequest.setPassword(password);
+        registerRequest.setFullName(fullName);
+        registerRequest.setEmail(email);
+
+        String requestBody = gson.toJson(registerRequest);
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(API_BASE_URL + "/auth/register"))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                .build();
+
+        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+        if (response.statusCode() == 201) { // 201 Created
+            return gson.fromJson(response.body(), UserDTO.class);
+        } else {
+            handleErrorResponse(response);
+            return null;
         }
     }
 }

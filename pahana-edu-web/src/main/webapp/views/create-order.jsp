@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Create New Order</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
     <style>
         fieldset { margin-top: 2rem; border: 1px solid #ccc; padding: 1rem; border-radius: 4px; }
         .item-adder { display: flex; gap: 1rem; align-items: flex-end; }
@@ -18,7 +18,7 @@
     </style>
 </head>
 <body>
-<c:if test="${empty sessionScope.loggedInUser}"><c:redirect url="/auth?action=login"/></c:if>
+<c:if test="${empty sessionScope.loggedInUser}"><c:redirect url="/app/auth/login"/></c:if>
 <%@ include file="_navbar.jsp" %>
 
 <div class="container">
@@ -27,7 +27,7 @@
         <hr>
         <c:if test="${not empty errorMessage}"><div class="error-message">${errorMessage}</div></c:if>
 
-        <form id="orderForm" action="${pageContext.request.contextPath}/orders?action=create" method="post">
+        <form id="orderForm" action="${pageContext.request.contextPath}/app/orders/create" method="post">
             <!-- Customer Selection -->
             <div class="form-group">
                 <label for="customerId">Select Customer</label>
@@ -91,7 +91,7 @@
 
             <div class="button-group">
                 <button type="submit" class="btn btn-primary">Create Order</button>
-                <a href="${pageContext.request.contextPath}/dashboard" class="btn btn-secondary">Cancel</a>
+                <a href="${pageContext.request.contextPath}/app/dashboard" class="btn btn-secondary">Cancel</a>
             </div>
             <div id="cart-items-container"></div>
         </form>
@@ -205,13 +205,13 @@
             cart.forEach((itemData, itemId) => {
                 const idInput = document.createElement('input');
                 idInput.type = 'hidden';
-                idInput.name = 'itemIds[]';
+                idInput.name = 'itemIds';
                 idInput.value = itemData.id;
                 container.appendChild(idInput);
 
                 const qtyInput = document.createElement('input');
                 qtyInput.type = 'hidden';
-                qtyInput.name = 'quantities[]';
+                qtyInput.name = 'quantities';
                 qtyInput.value = itemData.quantity;
                 container.appendChild(qtyInput);
             });

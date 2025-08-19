@@ -1,151 +1,157 @@
-//package com.pahanaedu.controllers;
-//
-//import com.pahanaedu.exceptions.ValidationException;
-//import com.pahanaedu.models.Customer;
-//import com.pahanaedu.models.Item;
-//import com.pahanaedu.models.Order;
-//import com.pahanaedu.models.OrderItem;
-//import com.pahanaedu.services.*;
-//
-//import jakarta.servlet.ServletException;
-//import jakarta.servlet.annotation.WebServlet;
-//import jakarta.servlet.http.HttpServlet;
-//import jakarta.servlet.http.HttpServletRequest;
-//import jakarta.servlet.http.HttpServletResponse;
-//import java.io.IOException;
-//import java.util.HashMap;
-//import java.util.List;
-//import java.util.Map;
-//import java.util.Optional;
-//
-//@WebServlet("/orders")
-//public class OrderController extends HttpServlet {
-//
-//    private IOrderService orderService;
-//    private ICustomerService customerService;
-//    private IItemService itemService;
-//
-//    @Override
-//    public void init() {
-//        this.orderService = new OrderService();
-//        this.customerService = new CustomerService();
-//        this.itemService = new ItemService();
-//    }
-//
-//    @Override
-//    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        String action = request.getParameter("action");
-//        if (action == null) {
-//            action = "list";
-//        };
-//
-//        switch (action) {
-//            case "create":
-//                showCreateOrderForm(request, response);
-//                break;
-//            case "list":
-//                listOrders(request, response);
-//                break;
-//            case "view":
-//                viewOrder(request, response);
-//                break;
-//            default:
-//                response.sendError(HttpServletResponse.SC_NOT_FOUND);
-//        }
-//    }
-//
-//    @Override
-//    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        String action = request.getParameter("action");
-//        if ("create".equals(action)) {
-//            createOrder(request, response);
-//        } else {
-//            response.sendError(HttpServletResponse.SC_NOT_FOUND);
-//        }
-//    }
-//
-//    private void showCreateOrderForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        List<Customer> customers = customerService.getAllCustomers();
-//        List<Item> items = itemService.getAllItems();
-//
-//        request.setAttribute("customers", customers);
-//        request.setAttribute("items", items);
-//        request.getRequestDispatcher("/views/create-order.jsp").forward(request, response);
-//    }
-//
-//    private void createOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        try {
-//            long customerId = Long.parseLong(request.getParameter("customerId"));
-//            Optional<Customer> customerOpt = customerService.getCustomerById(customerId);
-//            if (!customerOpt.isPresent()) {
-//                throw new ValidationException("Selected customer not found.");
-//            }
-//            Customer customer = customerOpt.get();
-//
-//            Map<Item, Integer> itemsWithQuantities = new HashMap<>();
-//            String[] itemIds = request.getParameterValues("itemIds[]");
-//            String[] quantities = request.getParameterValues("quantities[]");
-//
-//            if (itemIds == null || quantities == null || itemIds.length != quantities.length) {
-//                throw new ValidationException("Order items data is corrupted or empty.");
-//            }
-//
-//            for (int i = 0; i < itemIds.length; i++) {
-//                long itemId = Long.parseLong(itemIds[i]);
-//                int quantity = Integer.parseInt(quantities[i]);
-//
-//                Optional<Item> itemOpt = itemService.getItemById(itemId);
-//                if (!itemOpt.isPresent()) {
-//                    throw new ValidationException("Item with ID " + itemId + " not found.");
-//                }
-//                itemsWithQuantities.put(itemOpt.get(), quantity);
-//            }
-//
-//            Order newOrder = orderService.placeOrder(customer, itemsWithQuantities);
-//
-//            response.sendRedirect(request.getContextPath() + "/dashboard?status=order_success");
-//
-//        } catch (ValidationException | NumberFormatException e) {
-//            request.setAttribute("errorMessage", e.getMessage());
-//            showCreateOrderForm(request, response);
-//        }
-//    }
-//
-//    private void listOrders(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        List<Order> orders = orderService.getAllOrders();
-//        List<Customer> customers = customerService.getAllCustomers();
-//
-//        Map<Long, String> customerMap = new HashMap<>();
-//        for (Customer c : customers) {
-//            customerMap.put(c.getId(), c.getFullName());
-//        }
-//
-//        request.setAttribute("orderList", orders);
-//        request.setAttribute("customerMap", customerMap);
-//        request.getRequestDispatcher("/views/view-orders.jsp").forward(request, response);
-//    }
-//
-//    private void viewOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        try {
-//            long orderId = Long.parseLong(request.getParameter("id"));
-//            Optional<Order> orderOptional = orderService.getOrderById(orderId);
-//
-//            if (orderOptional.isPresent()) {
-//                Order order = orderOptional.get();
-//                Optional<Customer> customerOptional = customerService.getCustomerById(order.getCustomerId());
-//
-//                for (OrderItem oi : order.getOrderItems()) {
-//                    itemService.getItemById(oi.getItemId()).ifPresent(oi::setItem);
-//                }
-//
-//                request.setAttribute("order", order);
-//                customerOptional.ifPresent(c -> request.setAttribute("customer", c));
-//                request.getRequestDispatcher("/views/print-bill.jsp").forward(request, response);
-//            } else {
-//                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Order not found.");
-//            }
-//        } catch (NumberFormatException e) {
-//            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid Order ID.");
-//        }
-//    }
-//}
+package com.pahanaedu.controllers;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.pahanaedu.api.dto.CustomerDTO;
+import com.pahanaedu.api.dto.ItemDTO;
+import com.pahanaedu.api.dto.OrderDTO;
+import com.pahanaedu.api.dto.OrderRequestDTO;
+import com.pahanaedu.clients.CustomerApiClient;
+import com.pahanaedu.clients.ItemApiClient;
+import com.pahanaedu.clients.OrderApiClient;
+import com.pahanaedu.exceptions.ApiClientException;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@WebServlet("/app/orders/*")
+public class OrderController extends HttpServlet {
+
+    private OrderApiClient orderApiClient;
+    private CustomerApiClient customerApiClient;
+    private ItemApiClient itemApiClient;
+    private Gson gson;
+
+    @Override
+    public void init() {
+        this.orderApiClient = new OrderApiClient();
+        this.customerApiClient = new CustomerApiClient();
+        this.itemApiClient = new ItemApiClient();
+        this.gson = new Gson();
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getPathInfo();
+        if (action == null) action = "/list";
+
+        try {
+            switch (action) {
+                case "/create":
+                    showCreateOrderForm(request, response);
+                    break;
+                case "/list":
+                    listOrders(request, response);
+                    break;
+                case "/view":
+                    viewOrder(request, response);
+                    break;
+                default:
+                    response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            }
+        } catch (ApiClientException | InterruptedException e) {
+            e.printStackTrace();
+            request.setAttribute("errorMessage", "Error communicating with the service: " + e.getMessage());
+            request.getRequestDispatcher("/views/dashboard.jsp").forward(request, response);
+        }
+    }
+
+    private void showCreateOrderForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ApiClientException, InterruptedException {
+        List<CustomerDTO> customers = customerApiClient.getAllCustomers();
+        List<ItemDTO> items = itemApiClient.getAllItems();
+
+        request.setAttribute("customers", customers);
+        request.setAttribute("items", items);
+        request.getRequestDispatcher("/views/create-order.jsp").forward(request, response);
+    }
+
+    private void listOrders(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ApiClientException, InterruptedException {
+        List<OrderDTO> orders = orderApiClient.getAllOrders();
+        request.setAttribute("orderList", orders);
+        request.getRequestDispatcher("/views/view-orders.jsp").forward(request, response);
+    }
+
+    private void viewOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ApiClientException, InterruptedException {
+        long orderId = Long.parseLong(request.getParameter("id"));
+        OrderDTO order = orderApiClient.getOrderById(orderId);
+
+        if (order == null) {
+            request.setAttribute("errorMessage", "Order with ID " + orderId + " not found.");
+            listOrders(request, response);
+            return;
+        }
+
+        CustomerDTO customer = customerApiClient.getCustomerById(order.getCustomerId()).orElse(null);
+
+        request.setAttribute("order", order);
+        request.setAttribute("customer", customer);
+        request.getRequestDispatcher("/views/print-bill.jsp").forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getPathInfo();
+        if ("/create".equals(action)) {
+            createOrder(request, response);
+        } else {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+        }
+    }
+
+    private void createOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            long customerId = Long.parseLong(request.getParameter("customerId"));
+
+            String[] itemIds = request.getParameterValues("itemIds");
+            String[] quantities = request.getParameterValues("quantities");
+
+            if (itemIds == null || quantities == null || itemIds.length == 0) {
+                throw new ApiClientException("Cannot create an order with an empty cart.", 400);
+            }
+
+            Map<Long, Integer> cart = new HashMap<>();
+            for (int i = 0; i < itemIds.length && i < quantities.length; i++) {
+                long itemId = Long.parseLong(itemIds[i]);
+                int quantity = Integer.parseInt(quantities[i]);
+                cart.put(itemId, quantity);
+            }
+
+            if (cart.isEmpty()) {
+                throw new ApiClientException("Cannot create an order with an empty cart.", 400);
+            }
+
+            OrderRequestDTO orderRequest = new OrderRequestDTO();
+            orderRequest.setCustomerId(customerId);
+            orderRequest.setCart(cart);
+
+            Map<String, Object> result = orderApiClient.createOrder(orderRequest);
+
+            long orderId = ((Double)result.get("orderId")).longValue();
+            response.sendRedirect(request.getContextPath() + "/app/dashboard?status=order_success&orderId=" + orderId);
+
+        } catch (ApiClientException e) {
+            request.setAttribute("errorMessage", e.getMessage());
+            try {
+                showCreateOrderForm(request, response);
+            } catch (Exception loadEx) {
+                loadEx.printStackTrace();
+                response.sendRedirect(request.getContextPath() + "/app/dashboard?status=order_error");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("errorMessage", "An unexpected error occurred: " + e.getMessage());
+            try {
+                showCreateOrderForm(request, response);
+            } catch (Exception loadEx) {
+                response.sendRedirect(request.getContextPath() + "/app/dashboard?status=order_error");
+            }
+        }
+    }
+}

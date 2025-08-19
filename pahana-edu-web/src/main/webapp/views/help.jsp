@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Help & Documentation</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
     <style>
         .help-section {
             background: white;
@@ -30,7 +30,7 @@
     </style>
 </head>
 <body>
-<c:if test="${empty sessionScope.loggedInUser}"><c:redirect url="/auth?action=login"/></c:if>
+<c:if test="${empty sessionScope.loggedInUser}"><c:redirect url="/app/auth/login"/></c:if>
 <%@ include file="_navbar.jsp" %>
 
 <div class="container">

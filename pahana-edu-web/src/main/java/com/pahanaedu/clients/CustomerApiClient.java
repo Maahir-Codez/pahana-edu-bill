@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class CustomerApiClient {
+public class CustomerApiClient extends BaseApiClient {
 
     private static final String API_BASE_URL = "http://localhost:8081/pahana-edu-api/api";
     private final HttpClient httpClient;
@@ -110,21 +110,6 @@ public class CustomerApiClient {
         if (response.statusCode() != 204) { // 204 No Content
             handleErrorResponse(response);
         }
-    }
-
-    private void handleErrorResponse(HttpResponse<String> response) throws ApiClientException {
-        String errorMessage = "Request failed with status code: " + response.statusCode();
-        try {
-            Map<String, String> errorResponse = gson.fromJson(response.body(), Map.class);
-            if (errorResponse != null && errorResponse.containsKey("error")) {
-                errorMessage = errorResponse.get("error");
-            }
-        } catch (Exception e) {
-            if (response.body() != null && !response.body().isEmpty()) {
-                errorMessage = response.body();
-            }
-        }
-        throw new ApiClientException(errorMessage, response.statusCode());
     }
 
 }
