@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/pahana-edu-billing.iml" filepath="$PROJECT_DIR$/pahana-edu-billing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/pahana-edu-billing.iml" filepath="$PROJECT_DIR$/.idea/pahana-edu-billing.iml" />
     </modules>
   </component>
 </project>

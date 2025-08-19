@@ -6,7 +6,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="pahana-edu-billing" />
+        <module name="pahana-edu-api" />
+        <module name="pahana-edu-web" />
       </profile>
     </annotationProcessing>
   </component>
