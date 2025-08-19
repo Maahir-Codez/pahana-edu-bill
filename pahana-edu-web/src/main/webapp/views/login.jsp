@@ -31,7 +31,7 @@
         }
     %>
 
-    <form action="${pageContext.request.contextPath}/auth?action=login" method="post">
+    <form action="${pageContext.request.contextPath}/app/auth/login" method="post">
         <div class="form-group">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
@@ -43,7 +43,7 @@
         <button type="submit">Login</button>
     </form>
     <div class="register-link">
-        <p>Don't have an account? <a href="${pageContext.request.contextPath}/auth?action=register">Register here</a></p>
+        <p>Don't have an account? <a href="${pageContext.request.contextPath}/app/auth/register">Register here</a></p>
     </div>
 </div>
 

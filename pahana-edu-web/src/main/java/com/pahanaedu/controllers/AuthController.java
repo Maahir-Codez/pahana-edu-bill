@@ -1,10 +1,8 @@
 package com.pahanaedu.controllers;
 
-import com.pahanaedu.exceptions.AuthenticationException;
-import com.pahanaedu.exceptions.RegistrationException;
-import com.pahanaedu.models.User;
-import com.pahanaedu.services.AuthService;
-import com.pahanaedu.services.IAuthService;
+import com.pahanaedu.api.dto.UserDTO; // We now use the DTO
+import com.pahanaedu.clients.AuthApiClient;
+import com.pahanaedu.exceptions.ApiClientException;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -14,31 +12,29 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet("/auth")
+@WebServlet("/app/auth/*")
 public class AuthController extends HttpServlet {
-    private IAuthService authService;
+
+    private AuthApiClient authApiClient;
 
     @Override
-    public void init() throws ServletException {
-        this.authService = new AuthService();
+    public void init() {
+        this.authApiClient = new AuthApiClient();
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getParameter("action");
+        String action = request.getPathInfo();
         if (action == null) {
-            action = "login";
+            action = "/login";
         }
 
         switch (action) {
-            case "login":
+            case "/login":
                 showLoginPage(request, response);
                 break;
-            case "logout":
+            case "/logout":
                 logout(request, response);
-                break;
-            case "register":
-                showRegisterPage(request, response);
                 break;
             default:
                 response.sendError(HttpServletResponse.SC_NOT_FOUND);
@@ -47,21 +43,11 @@ public class AuthController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getParameter("action");
-        if (action == null) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
-            return;
-        }
-
-        switch (action) {
-            case "login":
-                handleLogin(request, response);
-                break;
-            case "register":
-                handleRegister(request, response);
-                break;
-            default:
-                response.sendError(HttpServletResponse.SC_NOT_FOUND);
+        String action = request.getPathInfo();
+        if ("/login".equals(action)) {
+            handleLogin(request, response);
+        } else {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     }
 
@@ -74,15 +60,19 @@ public class AuthController extends HttpServlet {
         String password = request.getParameter("password");
 
         try {
-            User user = authService.login(username, password);
+            UserDTO userDTO = authApiClient.login(username, password);
 
             HttpSession session = request.getSession();
-            session.setAttribute("loggedInUser", user);
+            session.setAttribute("loggedInUser", userDTO);
 
-            response.sendRedirect(request.getContextPath() + "/dashboard");
+            response.sendRedirect(request.getContextPath() + "/app/dashboard");
 
-        } catch (AuthenticationException e) {
+        } catch (ApiClientException e) {
             request.setAttribute("errorMessage", e.getMessage());
+            showLoginPage(request, response);
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            request.setAttribute("errorMessage", "Error connecting to the authentication service. Please try again later.");
             showLoginPage(request, response);
         }
     }
@@ -92,27 +82,6 @@ public class AuthController extends HttpServlet {
         if (session != null) {
             session.invalidate();
         }
-        response.sendRedirect(request.getContextPath() + "/auth?action=login&status=logout_success");
-    }
-
-    private void showRegisterPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/views/register.jsp").forward(request, response);
-    }
-
-    private void handleRegister(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String fullName = request.getParameter("fullName");
-        String email = request.getParameter("email");
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-
-        try {
-            authService.registerUser(username, password, fullName, email);
-            // On success, redirect to the login page with a success message
-            response.sendRedirect(request.getContextPath() + "/auth?action=login&status=reg_success");
-        } catch (RegistrationException e) {
-            // On failure, forward back to the register page with an error
-            request.setAttribute("errorMessage", e.getMessage());
-            showRegisterPage(request, response);
-        }
+        response.sendRedirect(request.getContextPath() + "/app/auth/login?status=logout_success");
     }
 }
