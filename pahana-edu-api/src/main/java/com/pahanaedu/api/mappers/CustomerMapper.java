@@ -27,4 +27,18 @@ public final class CustomerMapper {
                 .map(CustomerMapper::toDTO)
                 .collect(Collectors.toList());
     }
+
+    public static Customer toModel(CustomerDTO dto) {
+        if (dto == null) return null;
+        Customer customer = new Customer();
+        customer.setId(dto.getId()); // ID might be null for creation
+        customer.setAccountNumber(dto.getAccountNumber());
+        customer.setFullName(dto.getFullName());
+        customer.setAddress(dto.getAddress());
+        customer.setCity(dto.getCity());
+        customer.setPostalCode(dto.getPostalCode());
+        customer.setPhoneNumber(dto.getPhoneNumber());
+        customer.setEmail(dto.getEmail());
+        return customer;
+    }
 }

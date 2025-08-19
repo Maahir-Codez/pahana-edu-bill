@@ -1,0 +1,19 @@
+### Successful Login (Use credentials from your database)
+POST http://localhost:8081/pahana-edu-api/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin123"
+}
+
+
+###
+### Failed Login (Incorrect Password)
+POST http://localhost:8081/pahana-edu-api/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "wrongpassword"
+}

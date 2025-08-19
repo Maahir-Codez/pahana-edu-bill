@@ -5,6 +5,7 @@ import com.pahanaedu.dao.ICustomerDAO;
 import com.pahanaedu.exceptions.ValidationException;
 import com.pahanaedu.models.Customer;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +30,8 @@ public class CustomerService implements ICustomerService {
     @Override
     public Customer addCustomer(Customer customer) throws ValidationException {
         validateCustomerData(customer, 0L);
+        customer.setDateRegistered(LocalDateTime.now());
+        customer.setActive(true);
         return customerDAO.create(customer);
     }
 

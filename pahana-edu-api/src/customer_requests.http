@@ -1,0 +1,41 @@
+### Get All Customers
+GET http://localhost:8081/pahana-edu-api/api/customers
+
+###
+### Get Customer with ID 1
+GET http://localhost:8081/pahana-edu-api/api/customers/1
+
+###
+### Create a New Customer
+POST http://localhost:8081/pahana-edu-api/api/customers
+Content-Type: application/json
+
+{
+  "accountNumber": "CUST-003",
+  "fullName": "Alice Williams",
+  "address": "789 Pine Lane",
+  "city": "Oakville",
+  "postalCode": "54321",
+  "phoneNumber": "555-0103",
+  "email": "alice.w@example.com"
+}
+
+###
+### Update Customer with ID 1
+PUT http://localhost:8081/pahana-edu-api/api/customers/1
+Content-Type: application/json
+
+{
+  "accountNumber": "CUST-001",
+  "fullName": "Johnathan Doe",
+  "address": "123 Maple Street",
+  "city": "Springfield",
+  "postalCode": "12345",
+  "phoneNumber": "555-0199",
+  "email": "john.doe@example.com"
+}
+
+
+###
+### Deactivate (Soft Delete) Customer with ID 2
+DELETE http://localhost:8081/pahana-edu-api/api/customers/2
