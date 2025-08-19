@@ -6,6 +6,7 @@ import com.pahanaedu.exceptions.ValidationException;
 import com.pahanaedu.models.Item;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +21,9 @@ public class ItemService implements IItemService {
     @Override
     public Item addItem(Item item) throws ValidationException {
         validateItemData(item, 0L);
+        LocalDateTime now = LocalDateTime.now();
+        item.setCreatedAt(now);
+        item.setUpdatedAt(now);
         return itemDAO.create(item);
     }
 

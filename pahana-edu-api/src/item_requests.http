@@ -1,0 +1,50 @@
+###
+### Get All Items (for reference)
+GET http://localhost:8081/pahana-edu-api/api/items
+Accept: application/json
+
+###
+### Create a New Item
+POST http://localhost:8081/pahana-edu-api/api/items
+Content-Type: application/json
+
+{
+  "sku": "NEW-BOOK-001",
+  "name": "The Hitchhiker's Guide",
+  "description": "A classic sci-fi comedy.",
+  "category": "Science Fiction",
+  "author": "Douglas Adams",
+  "price": 14.99,
+  "stockQuantity": 42
+}
+
+###
+### Create an Item with Invalid Data (to test validation)
+POST http://localhost:8081/pahana-edu-api/api/items
+Content-Type: application/json
+
+{
+  "sku": "BAD-SKU-001",
+  "name": "Book with Negative Price",
+  "price": -5.00,
+  "stockQuantity": 10
+}
+
+###
+### Update an Existing Item (Change ID in URL to match one in your DB)
+PUT http://localhost:8081/pahana-edu-api/api/items/1
+Content-Type: application/json
+
+{
+  "sku": "BOOK-HC-001-UPDATED",
+  "name": "The Midnight Library (Updated Edition)",
+  "description": "A classic story about choices.",
+  "category": "Modern Fiction",
+  "author": "Matt Haig",
+  "price": 16.99,
+  "stockQuantity": 45
+}
+
+###
+### Delete an Existing Item (Change ID to one you want to delete)
+DELETE http://localhost:8081/pahana-edu-api/api/items/4
