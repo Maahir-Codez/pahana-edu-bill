@@ -2,10 +2,10 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/navbar.css">
 
 <div class="navbar">
-    <a href="${pageContext.request.contextPath}/dashboard" class="navbar-brand">Pahana Edu</a>
+    <a href="${pageContext.request.contextPath}/app/dashboard" class="navbar-brand">Pahana Edu</a>
 
     <nav class="navbar-nav">
-        <a href="${pageContext.request.contextPath}/dashboard" class="nav-link">
+        <a href="${pageContext.request.contextPath}/app/dashboard" class="nav-link">
             Dashboard
         </a>
         <a href="${pageContext.request.contextPath}/app/customers/list" class="nav-link">
