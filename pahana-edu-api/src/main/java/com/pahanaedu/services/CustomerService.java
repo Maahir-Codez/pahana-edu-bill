@@ -35,9 +35,31 @@ public class CustomerService implements ICustomerService {
         return customerDAO.create(customer);
     }
 
+    @Override
     public void updateCustomer(Customer customer) throws ValidationException {
-        validateCustomerData(customer, customer.getId());
-        customerDAO.update(customer);
+        Long customerId = customer.getId();
+        if (customerId == null) {
+            throw new ValidationException("Customer ID is required for an update.");
+        }
+
+        Optional<Customer> existingCustomerOpt = customerDAO.findById(customerId);
+        if (!existingCustomerOpt.isPresent()) {
+            throw new ValidationException("Cannot update. Customer with ID " + customerId + " not found.");
+        }
+
+        Customer existingCustomer = existingCustomerOpt.get();
+
+        existingCustomer.setAccountNumber(customer.getAccountNumber());
+        existingCustomer.setFullName(customer.getFullName());
+        existingCustomer.setEmail(customer.getEmail());
+        existingCustomer.setPhoneNumber(customer.getPhoneNumber());
+        existingCustomer.setAddress(customer.getAddress());
+        existingCustomer.setCity(customer.getCity());
+        existingCustomer.setPostalCode(customer.getPostalCode());
+
+        validateCustomerData(existingCustomer, existingCustomer.getId());
+
+        customerDAO.update(existingCustomer);
     }
 
     private void validateCustomerData(Customer customer, Long customerIdToIgnore) throws ValidationException {

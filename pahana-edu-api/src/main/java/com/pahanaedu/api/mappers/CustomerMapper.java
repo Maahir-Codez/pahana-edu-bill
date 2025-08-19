@@ -2,6 +2,8 @@ package com.pahanaedu.api.mappers;
 
 import com.pahanaedu.api.dto.CustomerDTO;
 import com.pahanaedu.models.Customer;
+import com.pahanaedu.utils.DateTimeUtil;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,6 +21,8 @@ public final class CustomerMapper {
         dto.setPostalCode(customer.getPostalCode());
         dto.setPhoneNumber(customer.getPhoneNumber());
         dto.setEmail(customer.getEmail());
+        dto.setActive(customer.isActive());
+        dto.setDateRegistered(DateTimeUtil.formatLocalDateTime(customer.getDateRegistered()));
         return dto;
     }
 
@@ -31,7 +35,7 @@ public final class CustomerMapper {
     public static Customer toModel(CustomerDTO dto) {
         if (dto == null) return null;
         Customer customer = new Customer();
-        customer.setId(dto.getId()); // ID might be null for creation
+        customer.setId(dto.getId());
         customer.setAccountNumber(dto.getAccountNumber());
         customer.setFullName(dto.getFullName());
         customer.setAddress(dto.getAddress());

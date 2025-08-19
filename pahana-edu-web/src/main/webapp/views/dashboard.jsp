@@ -25,7 +25,7 @@
 <body>
 
 <c:if test="${empty sessionScope.loggedInUser}">
-    <c:redirect url="/auth?action=login"/>
+    <c:redirect url="/app/auth/login"/>
 </c:if>
 
 <%@ include file="_navbar.jsp" %>
@@ -42,7 +42,7 @@
             <div class="card-body">
                 <h3 class="card-title">Customer Management</h3>
                 <p class="card-text">View, add, or edit customer accounts and their details.</p>
-                <a href="${pageContext.request.contextPath}/customers?action=list" class="card-link">View Customers</a>
+                <a href="${pageContext.request.contextPath}/app/customers/list" class="card-link">View Customers</a>
             </div>
         </div>
 
@@ -51,7 +51,7 @@
             <div class="card-body">
                 <h3 class="card-title">Item Management</h3>
                 <p class="card-text">Manage the bookshop's inventory of items and their prices.</p>
-                <a href="${pageContext.request.contextPath}/items?action=list" class="card-link">Manage Items</a>
+                <a href="${pageContext.request.contextPath}/app/items/list" class="card-link">Manage Items</a>
             </div>
         </div>
 
@@ -62,8 +62,8 @@
                 <p class="card-text">Create new orders for customers or view the history of past orders and bills.</p>
 
                 <div class="card-link-group">
-                    <a href="${pageContext.request.contextPath}/orders?action=create" class="card-link">Create New Order</a>
-                    <a href="${pageContext.request.contextPath}/orders?action=list" class="card-link secondary">View Order History</a>
+                    <a href="${pageContext.request.contextPath}/app/orders/create" class="card-link">Create New Order</a>
+                    <a href="${pageContext.request.contextPath}/app/orders/list" class="card-link secondary">View Order History</a>
                 </div>
             </div>
         </div>
@@ -73,7 +73,7 @@
             <div class="card-body">
                 <h3 class="card-title">Help Section</h3>
                 <p class="card-text">Get information and guidelines on how to use the system.</p>
-                <a href="#" class="card-link">View Help</a> <%-- Link to be implemented later --%>
+                <a href="${pageContext.request.contextPath}/app/help" class="card-link">View Help</a>
             </div>
         </div>
     </div>

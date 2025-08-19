@@ -10,13 +10,13 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
-<c:if test="${empty sessionScope.loggedInUser}"><c:redirect url="/auth?action=login"/></c:if>
+<c:if test="${empty sessionScope.loggedInUser}"><c:redirect url="/app/auth/login"/></c:if>
 <%@ include file="_navbar.jsp" %>
 
 <div class="container">
     <div class="page-header">
         <h1>Item Inventory</h1>
-        <a href="${pageContext.request.contextPath}/items?action=add" class="btn-primary" style="padding: 10px; border-radius: 5px;">Add New Item</a>
+        <a href="${pageContext.request.contextPath}/app/items/add" class="btn-primary" style="padding: 10px; border-radius: 5px;">Add New Item</a>
     </div>
 
     <table>
@@ -40,12 +40,12 @@
                 <td><fmt:formatNumber value="${item.price}" type="currency" currencySymbol="$"/></td>
                 <td><c:out value="${item.stockQuantity}"/></td>
                 <td>
-                    <c:if test="${item.active}"><span style="color: green;">Active</span></c:if>
-                    <c:if test="${not item.active}"><span style="color: red;">Inactive</span></c:if>
+                    <c:if test="${item.stockQuantity > 0}"><span style="color: green;">Available</span></c:if>
+                    <c:if test="${item.stockQuantity <= 0}"><span style="color: red;">Out of stock</span></c:if>
                 </td>
                 <td class="actions">
-                    <a href="${pageContext.request.contextPath}/items?action=edit&id=${item.id}" class="edit-link">Edit</a>
-                    <form action="${pageContext.request.contextPath}/items?action=delete" method="post" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this item? This action is permanent.');">
+                    <a href="${pageContext.request.contextPath}/app/items/edit?id=${item.id}" class="edit-link">Edit</a>
+                    <form action="${pageContext.request.contextPath}/app/items/delete" method="post" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this item? This action is permanent.');">
                         <input type="hidden" name="id" value="${item.id}">
                         <button type="submit" class="delete-link">Delete</button>
                     </form>

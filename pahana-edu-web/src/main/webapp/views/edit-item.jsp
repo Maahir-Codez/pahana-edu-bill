@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
-<c:if test="${empty sessionScope.loggedInUser}"><c:redirect url="/auth?action=login"/></c:if>
+<c:if test="${empty sessionScope.loggedInUser}"><c:redirect url="/app/auth/login"/></c:if>
 <%@ include file="_navbar.jsp" %>
 
 <div class="container">
@@ -18,7 +18,7 @@
         <hr>
         <c:if test="${not empty errorMessage}"><div class="error-message">${errorMessage}</div></c:if>
 
-        <form action="${pageContext.request.contextPath}/items?action=edit" method="post">
+        <form action="${pageContext.request.contextPath}/app/items/edit" method="post">
             <input type="hidden" name="id" value="<c:out value='${item.id}'/>">
 
             <div class="form-group">
@@ -51,7 +51,7 @@
             </div>
             <div class="button-group">
                 <button type="submit" class="btn btn-primary">Update Item</button>
-                <a href="${pageContext.request.contextPath}/items?action=list" class="btn btn-secondary">Cancel</a>
+                <a href="${pageContext.request.contextPath}/app/items/list" class="btn btn-secondary">Cancel</a>
             </div>
         </form>
     </div>

@@ -9,6 +9,8 @@ public class CustomerDTO {
     private String postalCode;
     private String phoneNumber;
     private String email;
+    private boolean active;
+    private String dateRegistered;
 
     public CustomerDTO() {}
 
@@ -28,4 +30,8 @@ public class CustomerDTO {
     public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
+    public boolean getActive() { return active; }
+    public void setActive(boolean active) { this.active = active; }
+    public String getDateRegistered() { return dateRegistered; }
+    public void setDateRegistered(String dateRegistered) { this.dateRegistered = dateRegistered; }
 }

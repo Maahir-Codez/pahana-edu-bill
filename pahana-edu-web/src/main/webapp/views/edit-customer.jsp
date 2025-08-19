@@ -10,7 +10,7 @@
 </head>
 <body>
 <c:if test="${empty sessionScope.loggedInUser}">
-    <c:redirect url="/auth?action=login"/>
+    <c:redirect url="/app/auth/login"/>
 </c:if>
 
 <%@ include file="_navbar.jsp" %>
@@ -24,7 +24,7 @@
             <div class="error-message">${errorMessage}</div>
         </c:if>
 
-        <form action="${pageContext.request.contextPath}/customers?action=edit" method="post">
+        <form action="${pageContext.request.contextPath}/app/customers/edit" method="post">
             <input type="hidden" name="id" value="<c:out value='${customer.id}'/>">
 
             <div class="form-group">
@@ -58,7 +58,7 @@
 
             <div class="button-group">
                 <button type="submit" class="btn btn-primary">Update Customer</button>
-                <a href="${pageContext.request.contextPath}/customers?action=list" class="btn btn-secondary">Cancel</a>
+                <a href="${pageContext.request.contextPath}/app/customers/list" class="btn btn-secondary">Cancel</a>
             </div>
         </form>
     </div>

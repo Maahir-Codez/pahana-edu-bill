@@ -19,6 +19,7 @@ public final class ItemMapper {
         dto.setAuthor(item.getAuthor());
         dto.setPrice(item.getPrice());
         dto.setStockQuantity(item.getStockQuantity());
+        dto.setActive(item.isActive());
         return dto;
     }
 
@@ -33,6 +34,7 @@ public final class ItemMapper {
         item.setAuthor(dto.getAuthor());
         item.setPrice(dto.getPrice());
         item.setStockQuantity(dto.getStockQuantity());
+        item.setActive(dto.getActive());
         return item;
     }
 

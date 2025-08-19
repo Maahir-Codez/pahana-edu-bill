@@ -33,7 +33,7 @@
         }
     %>
 
-    <form action="${pageContext.request.contextPath}/auth?action=register" method="post">
+    <form action="${pageContext.request.contextPath}/app/auth/register" method="post">
         <div class="form-group">
             <label for="fullName">Full Name:</label>
             <input type="text" id="fullName" name="fullName" required>
@@ -53,7 +53,7 @@
         <button type="submit">Register</button>
     </form>
     <div class="login-link">
-        <p>Already have an account? <a href="${pageContext.request.contextPath}/auth?action=login">Login here</a></p>
+        <p>Already have an account? <a href="${pageContext.request.contextPath}/app/auth/login">Login here</a></p>
     </div>
 </div>
 

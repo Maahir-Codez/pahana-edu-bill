@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-@WebServlet("/dashboard")
+@WebServlet("/app/dashboard")
 public class DashboardController extends HttpServlet {
 
     @Override
@@ -17,7 +17,7 @@ public class DashboardController extends HttpServlet {
         HttpSession session = request.getSession(false);
 
         if (session == null || session.getAttribute("loggedInUser") == null) {
-            response.sendRedirect(request.getContextPath() + "/auth?action=login");
+            response.sendRedirect(request.getContextPath() + "/app/auth/login");
             return;
         }
 

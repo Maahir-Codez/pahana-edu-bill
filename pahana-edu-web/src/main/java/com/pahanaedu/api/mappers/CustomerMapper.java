@@ -31,7 +31,7 @@ public final class CustomerMapper {
     public static Customer toModel(CustomerDTO dto) {
         if (dto == null) return null;
         Customer customer = new Customer();
-        customer.setId(dto.getId()); // ID might be null for creation
+        customer.setId(dto.getId());
         customer.setAccountNumber(dto.getAccountNumber());
         customer.setFullName(dto.getFullName());
         customer.setAddress(dto.getAddress());

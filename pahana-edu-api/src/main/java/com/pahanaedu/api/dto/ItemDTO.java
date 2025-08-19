@@ -11,6 +11,7 @@ public class ItemDTO {
     private String author;
     private BigDecimal price;
     private int stockQuantity;
+    private boolean active;
 
     public ItemDTO() {}
 
@@ -30,4 +31,6 @@ public class ItemDTO {
     public void setPrice(BigDecimal price) { this.price = price; }
     public int getStockQuantity() { return stockQuantity; }
     public void setStockQuantity(int stockQuantity) { this.stockQuantity = stockQuantity; }
+    public boolean getActive() { return active; }
+    public void setActive(boolean active) { this.active = active; }
 }

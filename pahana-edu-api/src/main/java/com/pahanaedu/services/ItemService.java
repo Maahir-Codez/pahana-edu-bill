@@ -39,9 +39,28 @@ public class ItemService implements IItemService {
 
     @Override
     public Item updateItem(Item item) throws ValidationException {
-        validateItemData(item, item.getId());
-        itemDAO.update(item);
-        return item;
+        Long itemId = item.getId();
+        if (itemId == null) {
+            throw new ValidationException("Item ID is required for an update.");
+        }
+
+        Item existingItem = itemDAO.findById(itemId)
+                .orElseThrow(() -> new ValidationException("Item with ID " + itemId + " not found."));
+
+        existingItem.setSku(item.getSku());
+        existingItem.setName(item.getName());
+        existingItem.setDescription(item.getDescription());
+        existingItem.setCategory(item.getCategory());
+        existingItem.setAuthor(item.getAuthor());
+        existingItem.setPrice(item.getPrice());
+        existingItem.setStockQuantity(item.getStockQuantity());
+        existingItem.setActive(item.isActive()); // Make sure to update the active status
+
+        validateItemData(existingItem, existingItem.getId());
+
+        itemDAO.update(existingItem);
+
+        return existingItem;
     }
 
     @Override
